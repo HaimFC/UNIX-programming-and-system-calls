@@ -1,35 +1,37 @@
 
-# UNIX Programming and System Calls
+# UNIX Programming and calls
 
-This project consists of several exercises designed to practice UNIX programming concepts and system calls. The program includes features such as process and thread creation, PID management, and inter-process communication.
+This project implements a series of exercises designed to practice UNIX programming and system calls. 
+It includes process management, thread creation, and file manipulation.
 
 ## Features
 
 ### Functions
 
 1. **`pid_t my_fork(void)`**:
-   - Calls `fork()` and returns the value on success.
-   - Prints an error message and exits if `fork()` fails.
+   - Creates a new process using `fork()`.
+   - Returns the PID of the new process on success.
+   - Prints an error message and exits the program if `fork()` fails.
 
 2. **`void print_pids(int fd, short unsigned int N, short unsigned int G)`**:
-   - Creates processes up to generation `G`, each process printing its PID and generation.
-   - Outputs the result to a specified file descriptor.
+   - Generates processes up to `G` generations, each printing its PID and generation.
+   - The output is written to the specified file.
 
 3. **`void count_lines(short unsigned int G)`**:
-   - Counts the number of lines in a file (`out.txt`) and prints statistics about generations.
+   - Counts the number of lines in `out.txt` for each generation using `grep` and `wc`.
+   - Prints the line counts in decreasing order of generations.
 
 4. **`void print_threads(short unsigned int N)`**:
-   - Creates `N` threads, each printing a message in the correct order.
+   - Creates `N` threads, each printing "Hi. I'm thread number i" in the correct order.
 
 5. **`int main(int argc, char* argv[])`**:
-   - Opens/creates the file `out.txt`.
-   - Calls `print_pids`, `count_lines`, and `print_threads`.
-
-### Output
-
-- The program outputs lines to `out.txt` in a structured format.
-- Prints line count statistics for each generation to the screen.
-- Displays thread messages in the correct order.
+   - Accepts two arguments:
+     - `N`: Number of iterations per process/thread.
+     - `G`: Number of generations for process creation.
+   - Executes the tasks:
+     1. Writes process details to `out.txt`.
+     2. Counts and prints the lines for each generation.
+     3. Creates threads and prints their messages.
 
 ### Example
 
@@ -46,19 +48,20 @@ Produces:
    My pid is 12346. My generation is 1.
    ...
    ```
+
 2. Output to the screen:
    ```
    Number of lines by processes of generation 2 is 9
    Number of lines by processes of generation 1 is 3
    Number of lines by processes of generation 0 is 1
-   Hi. I'm thread number 0
-   Hi. I'm thread number 1
-   Hi. I'm thread number 2
+   Hi. I'm thread 0
+   Hi. I'm thread 1
+   Hi. I'm thread 2
    ```
 
 ## How to Build and Run
 
-1. Compile the code:
+1. Build the project:
    ```bash
    make
    ```
@@ -68,8 +71,8 @@ Produces:
    ./OS <N> <G>
    ```
 
-   - `N`: Number of iterations per process.
-   - `G`: Number of generations.
+   - `N`: Number of iterations per process/thread.
+   - `G`: Number of generations for process creation.
 
 ## Dependencies
 
@@ -79,5 +82,4 @@ Produces:
 ## File Structure
 
 - `main.c`: Contains the implementation of all functions.
-- `Makefile`: Compiles the code into an executable named `OS`.
-
+- `Makefile`: Automates the compilation process.
